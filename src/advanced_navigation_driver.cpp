@@ -227,8 +227,8 @@ int main(int argc, char * argv[])
   	// Intialising for the log files
 	rawtime = time(NULL);
 	timeinfo = localtime(&rawtime);
-	sprintf(filename, "Log_%02d-%02d-%02d_%02d-%02d-%02d.anpp", timeinfo->tm_year-100, timeinfo->tm_mon+1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
-	log_file = fopen(filename, "wb");
+	//sprintf(filename, "Log_%02d-%02d-%02d_%02d-%02d-%02d.anpp", timeinfo->tm_year-100, timeinfo->tm_mon+1, timeinfo->tm_mday, timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
+	//log_file = fopen(filename, "wb");
   
   
   	// Initialise packets
@@ -269,7 +269,7 @@ int main(int argc, char * argv[])
 		std::stringstream ss;
 		if ((bytes_received = PollComport(an_decoder_pointer(&an_decoder), an_decoder_size(&an_decoder))) > 0)
 		{
-			fwrite(an_decoder_pointer(&an_decoder), sizeof(uint8_t), bytes_received, log_file);
+			//fwrite(an_decoder_pointer(&an_decoder), sizeof(uint8_t), bytes_received, log_file);
 			// Increment the decode buffer length by the number of bytes received 
 			an_decoder_increment(&an_decoder, bytes_received);
 
@@ -623,7 +623,7 @@ int main(int argc, char * argv[])
 			
 			// Write the logs to the logger reset when counter is full
 			if(write_counter++ >= 100){
-				fflush(log_file);
+				//fflush(log_file);
 				write_counter = 0;
 			}
 		}
