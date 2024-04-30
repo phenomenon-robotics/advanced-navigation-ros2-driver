@@ -92,7 +92,7 @@ int main(int argc, char * argv[])
 	std::string com_port;
 
 	// String ID for all publishers
-	std::string imu_frame_id;
+	std::string imu_frame_id ="imu";
 	std::string nav_sat_frame_id;
 	std::string rawsensors_magnetometer_frame_id;
 	std::string barometric_pressure_frame_id;
