@@ -153,15 +153,15 @@ int main(int argc, char * argv[])
 	imu_msg.orientation.y = 0.0;
 	imu_msg.orientation.z = 0.0;
 	imu_msg.orientation.w = 0.0;
-	imu_msg.orientation_covariance = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+	imu_msg.orientation_covariance = {0.01,0.0,0.0,0.0,0.01,0.0,0.0,0.0,0.01};
 	imu_msg.angular_velocity.x = 0.0;
 	imu_msg.angular_velocity.y = 0.0;
 	imu_msg.angular_velocity.z = 0.0;
-	imu_msg.angular_velocity_covariance = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0}; // fixed
+	imu_msg.angular_velocity_covariance = {0.01,0.0,0.0,0.0,0.01,0.0,0.0,0.0,0.01}; // fixed
 	imu_msg.linear_acceleration.x = 0.0;
 	imu_msg.linear_acceleration.y = 0.0;
 	imu_msg.linear_acceleration.z = 0.0;
-	imu_msg.linear_acceleration_covariance = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0}; // fixed
+	imu_msg.linear_acceleration_covariance = {0.01,0.0,0.0,0.0,0.01,0.0,0.0,0.0,0.01}; // fixed
 
 	// NavSatFix sensor_msgs/NavSatFix 
 	sensor_msgs::msg::NavSatFix nav_sat_fix_msg;
@@ -356,8 +356,7 @@ int main(int argc, char * argv[])
 
 
 						// IMU
-						imu_msg.header.stamp.sec=system_state_packet.unix_time_seconds;
-						imu_msg.header.stamp.nanosec=system_state_packet.microseconds*1000;
+						imu_msg.header.stamp=node->now();
 						imu_msg.header.frame_id=imu_frame_id;
 						// Using the RPY orientation as done by cosama
 						orientation.setRPY(
