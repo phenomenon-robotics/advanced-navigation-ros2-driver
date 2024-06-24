@@ -53,6 +53,10 @@
 #include <sensor_msgs/msg/magnetic_field.hpp>
 #include <sensor_msgs/msg/temperature.hpp>
 #include <sensor_msgs/msg/fluid_pressure.hpp>
+
+#include <chrono>
+#include <ctime>
+
 #define RADIANS_TO_DEGREES (180.0/M_PI)
 const double PI = 4*atan(1);
 
@@ -358,12 +362,14 @@ int main(int argc, char * argv[])
 						// IMU
 						imu_msg.header.stamp=node->now();
 						imu_msg.header.frame_id=imu_frame_id;
+
 						// Using the RPY orientation as done by cosama
 						orientation.setRPY(
 							system_state_packet.orientation[0],
 							system_state_packet.orientation[1],
 							PI/2.0f - system_state_packet.orientation[2] //REP 103
 						);
+
 						imu_msg.orientation.x = orientation[0];
 						imu_msg.orientation.y = orientation[1];
 						imu_msg.orientation.z = orientation[2];
@@ -377,7 +383,7 @@ int main(int argc, char * argv[])
 
 						imu_msg.angular_velocity.x=system_state_packet.angular_velocity[0]; // These the same as the TWIST msg values
 						imu_msg.angular_velocity.y=system_state_packet.angular_velocity[1];
-						imu_msg.angular_velocity.z=system_state_packet.angular_velocity[2];
+						imu_msg.angular_velocity.z= -system_state_packet.angular_velocity[2]; //REP 103
 
 						//The IMU linear acceleration is now coming from the RAW Sensors Accelerometer 
 						//imu_msg.linear_acceleration.x=system_state_packet.body_acceleration[0];
