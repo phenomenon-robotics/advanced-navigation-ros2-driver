@@ -38,8 +38,8 @@
 #ifdef __linux__   /* Linux */
 
 
-int Cport,
-    error;
+int Cport;
+extern int error;
 
 struct termios new_port_settings,
        old_port_settings;
